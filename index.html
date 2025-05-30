@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Jaze - Las Consecuencias</title>
+  <style>
+    body {
+      background-color: #111;
+      color: #fff;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      padding: 50px;
+    }
+    .line {
+      display: none;
+      font-size: 1.8em;
+      margin: 20px 0;
+    }
+    .visible {
+      display: block;
+    }
+    audio {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jaze - Las Consecuencias</h1>
+
+  <audio id="audio" controls>
+    <source src="las-consecuencias-jaze.mp3" type="audio/mpeg">
+    Tu navegador no soporta la reproducción de audio.
+  </audio>
+
+  <div id="lyrics">
+    <div class="line" data-time="0">Quiero que entiendas las consecuencias</div>
+    <div class="line" data-time="4">De poner tu mano encima de mí</div>
+    <div class="line" data-time="8">Sé que tú lo sientes como una ofensa</div>
+    <div class="line" data-time="12">Pero esta vida me enseñó a seguir</div>
+    <div class="line" data-time="16">No quiero lastimarte, pero sé</div>
+    <div class="line" data-time="19">Que el dolor se convierte en poder</div>
+    <div class="line" data-time="23">Y aunque no quiera volver a caer</div>
+    <div class="line" data-time="27">No voy a perder</div>
+    <div class="line" data-time="30">Otra vez</div>
+    <div class="line" data-time="33">Sigo luchando sin tener piedad</div>
+    <div class="line" data-time="37">Contra mis miedos, contra la ansiedad</div>
+    <div class="line" data-time="41">Aunque parezca que no puedo más</div>
+    <div class="line" data-time="45">No voy a parar</div>
+    <div class="line" data-time="48">No voy a parar</div>
+  </div>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const lines = document.querySelectorAll(".line");
+
+    audio.ontimeupdate = () => {
+      const currentTime = audio.currentTime;
+
+      lines.forEach((line, index) => {
+        const time = parseFloat(line.getAttribute("data-time"));
+        const nextTime = index < lines.length - 1
+          ? parseFloat(lines[index + 1].getAttribute("data-time"))
+          : Infinity;
+
+        if (currentTime >= time && currentTime < nextTime) {
+          line.classList.add("visible");
+        } else {
+          line.classList.remove("visible");
+        }
+      });
+    };
+  </script>
+</body>
+</html>
